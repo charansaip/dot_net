@@ -33,11 +33,6 @@ jobs:
        docker build -t testdotnet:latest .
        docker images
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
     - name: Start Minikube
       run: minikube start --driver=docker
 
