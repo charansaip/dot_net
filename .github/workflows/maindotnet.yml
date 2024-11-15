@@ -44,7 +44,7 @@ jobs:
     - name: Set up Kubeconfig
       run: |
         mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+        minikube kubeconfig > $HOME/.kube/config
 
     - name: Load Docker image into Minikube
       run: |
