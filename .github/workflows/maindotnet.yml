@@ -34,21 +34,13 @@ jobs:
        docker images
 
     - name: Start Minikube
-      run: minikube start --driver=docker
-
+      id: minikube
+      uses: medyagh/setup-minikube@latest
+      
     - name: Set up Kubectl
       uses: azure/setup-kubectl@v1
       with:
         version: 'latest'
-
-    - name: Set up Kubeconfig
-      run: |
-        mkdir -p $HOME/.kube
-        minikube kubeconfig > $HOME/.kube/config
-
-    - name: Load Docker image into Minikube
-      run: |
-        minikube image load testdotnet:latest
         
     - name: PWD
       run: ls -latr    
