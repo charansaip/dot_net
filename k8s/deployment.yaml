@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testdotnet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testdotnet
+  template:
+    metadata:
+      labels:
+        app: testdotnet
+    spec:
+      containers:
+      - name: testdotnet
+        image: testdotnet:latest
+        ports:
+        - containerPort: 80
