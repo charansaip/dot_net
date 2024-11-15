@@ -29,7 +29,9 @@ jobs:
       uses: docker/setup-buildx-action@v1
 
     - name: Build Docker image
-      run: docker build -t testdotnet:latest .
+      run: |
+       docker build -t testdotnet:latest .
+       docker images
 
   deploy:
     needs: build
