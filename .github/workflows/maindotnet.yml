@@ -20,22 +20,19 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         
-    - name: PWD
-      run: ls -latr    
+   
 
     - name: Deploy to Minikube
       run: |
         kubectl apply -f k8s/deployment.yaml
         kubectl apply -f k8s/service.yaml
         kubectl get pods -o wide
-    - name: Sleep for 1 minute
-      run: sleep 60    
+  
     - name: Pods status
       run: |
        kubectl get pods -o wide
        kubectl get svc -o wide
        kubectl port-forward svc/testdotnet-service 8080:8080
-       gh codespace list
-    - name: Sleep for 10 minutes to check health status
-      run: sleep 600
+
+
     
