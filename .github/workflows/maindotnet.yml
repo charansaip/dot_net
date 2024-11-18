@@ -24,8 +24,8 @@ jobs:
 
     - name: Deploy to Minikube
       run: |
-        kubectl apply -f k8s/deployment.yaml
-        kubectl apply -f k8s/service.yaml
+        kubectl apply -f D:\Charan\actions-runner\_work\dot_net\dot_net\k8s\deployment.yaml
+        kubectl apply -f D:\Charan\actions-runner\_work\dot_net\dot_net\k8s\service.yaml
         kubectl get pods -o wide
   
     - name: Pods status
