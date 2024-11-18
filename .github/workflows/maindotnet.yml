@@ -51,5 +51,7 @@ jobs:
       run: |
        kubectl get pods -o wide
        kubectl get svc -o wide
+       kubectl port-forward svc/testdotnet-service 8080:8080
+       gh codespace list
     - name: Sleep for 10 minutes to check health status
       run: sleep 600
