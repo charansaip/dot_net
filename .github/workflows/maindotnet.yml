@@ -28,7 +28,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-       docker build -t testdotnet:latest .
+       docker build -t charansai515201/testdotnet:latest .
        docker push charansai515201/dotnet:latest
        docker images
 
