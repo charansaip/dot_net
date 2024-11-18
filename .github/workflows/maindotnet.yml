@@ -13,5 +13,54 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '8.0.x'
+    - name: set up Docker
+      uses: docker/setup-buildx-action@v3
 
+    - name: Login into Docker
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build
+      run: dotnet build --configuration Release
+
+    - name: Publish
+      run: dotnet publish --configuration Release --output ./publish
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Build Docker image
+      run: |
+       docker build -t testdotnet:latest .
+       docker push charansai515201/dotnet:latest
+       docker images
+
+    - name: Start Minikube
+      id: minikube
+      uses: medyagh/setup-minikube@latest
+        
+    - name: PWD
+      run: ls -latr    
+
+    - name: Deploy to Minikube
+      run: |
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml
+        kubectl get pods -o wide
+    - name: Sleep for 1 minute
+      run: sleep 60    
+    - name: Pods status
+      run: |
+       kubectl get pods -o wide
+       kubectl get svc -o wide
+       kubectl port-forward svc/testdotnet-service 8080:8080
+       gh codespace list
+    - name: Sleep for 10 minutes to check health status
+      run: sleep 600
     
