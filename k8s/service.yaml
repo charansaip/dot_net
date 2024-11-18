@@ -3,11 +3,10 @@ kind: Service
 metadata:
   name: testdotnet-service
 spec:
-  type: NodePort
   selector:
     app: testdotnet
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
-      nodePort: 30001
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
